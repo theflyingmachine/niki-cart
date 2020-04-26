@@ -11,8 +11,6 @@ export class ShoppingComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  title = 'Tour of Heroes';
-
     products = [
      { name: "Coke", description  : "Black Cold Drink" , price: "35.00" , imgurl : "assets/img/coke.jpg" },
      { name: "Sprite", description  : "Clear Cold Drink, Clear hai" , price: "45.00" , imgurl : "assets/img/sprite.jpg" },

@@ -1,8 +1,34 @@
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
+<div *ngIf="1 > cartproducts.length" class="mt-5 pt-5">
+  <h2 class="d-flex justify-content-center">Your cart is empty! Let's do some shopping</h2>
+  <div class="d-flex justify-content-center">
+    <img src="https://i1.wp.com/www.huratips.com/wp-content/uploads/2019/04/empty-cart.png?fit=603%2C288&ssl=1"
+      alt="Cart Empty">
+
   </div>
+</div>
+
+<div *ngIf="cartproducts.length > 1" class="m-5 card" style="width: 60%;">
+  <div class="card-header">
+    Your Cart
+    <div *ngFor="let item of cartproducts">
+
+      <div class="m-4 card " style="width: 90%;">
+        <div class="card-body">
+          <div style="float:left; width: 20%;">
+            <img class="cartimg" src={{item.imgurl}} alt="Item Photo">
+          </div>
+          <div style="float: right; text-align: right;">
+            <h4 class="card-title">{{item.name}}</h4>
+            <b>
+              <a href="#" class="btn btn-danger"><b>-</b></a>
+              &nbsp;&nbsp; {{item.quantity}} &nbsp;&nbsp;
+              <a href="#" class="btn btn-success"><b>+</b></a>
+            </b>
+            <p class="card-text">Quantity: {{item.quantity}} x Unit Price: {{item.price}} = Total Price:
+              {{item.quantity*item.price}}</p>
+
+          </div>
+          <!-- <a href="#" class="btn btn-primary">Total Price: {{item.quantity*item.price}}</a> -->
+        </div>
+      </div>
+    </div>
