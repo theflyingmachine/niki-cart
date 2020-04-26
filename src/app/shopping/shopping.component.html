@@ -9,41 +9,18 @@
         </div>
       </div>
   </li> -->
- <h2 *ngIf="1 > products.length">Sorry! No products are available at this moment</h2>
-<div class="container mt-5">
-<!-- <div class="card-group"> -->
-    <div class="card-deck">
-    <!-- <div class="col-sm col-xs-  2"> -->
-    <div *ngFor="let item of products" class="card pt-1">
-      <img class="card-img-top" src={{item.imgurl}} alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">{{item.name}}</h5>
-        <p class="card-text">{{item.description}}</p>
-        <p class="card-text"><small class="text-muted">Price: {{item.price}}</small></p>
-      </div>
-    </div>
-</div>
-</div>
-
-
+<h2 *ngIf="1 > products.length">Sorry! No products are available at this moment</h2>
 <div class="container mt-2">
-    <!--   <div class="card card-block mb-2">
-        <h4 class="card-title">Card 1</h4>
-        <p class="card-text">Welcom to bootstrap card styles</p>
-        <a href="#" class="btn btn-primary">Submit</a>
-      </div>   -->
-      <div class="row">
-        <div *ngFor="let item of products" class="card pt-1">
-        <div class="col-md-3 col-sm-6 item">
-           
-          <div class="card item-card card-block">
-          <h4 class="card-title text-right"><i class="material-icons">favorite</i></h4>
-        <img src={{item.imgurl}} alt="Photo of sunset">
-            <h5 class="item-card-title mt-3 mb-3">{{item.name}}</h5>
-            <p class="card-text">{{item.description}}</p> 
-            <p class="card-text">Price: {{item.price}}</p> 
+  <div class="row">
+    <div *ngFor="let item of products">
+      <div class="col-md-3 col-sm-6 item">
+        <div class="card item-card card-block">
+          <h4 class="card-title text-right"><i class="material-icons">settings</i></h4>
+          <img src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg" alt="Photo of sunset">
+          <h5 class="item-card-title mt-3 mb-3">{{item.name}}</h5>
+          <p class="card-text">{{item.description}}</p>
+        </div>
       </div>
     </div>
-        </div>
-    </div>
-    
+  </div>
+</div>
