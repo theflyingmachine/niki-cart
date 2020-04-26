@@ -1,0 +1,49 @@
+<!-- 
+<li *ngFor="let hero of heroes">
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="data:image/jpeg;base64,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" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{  hero }}</h5>
+          <p class="card-text">Refreshing Drink</p>
+          <a href="#" class="btn btn-primary">Add to Cart</a>
+        </div>
+      </div>
+  </li> -->
+ <h2 *ngIf="1 > products.length">Sorry! No products are available at this moment</h2>
+<div class="container mt-5">
+<!-- <div class="card-group"> -->
+    <div class="card-deck">
+    <!-- <div class="col-sm col-xs-  2"> -->
+    <div *ngFor="let item of products" class="card pt-1">
+      <img class="card-img-top" src={{item.imgurl}} alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+        <p class="card-text">{{item.description}}</p>
+        <p class="card-text"><small class="text-muted">Price: {{item.price}}</small></p>
+      </div>
+    </div>
+</div>
+</div>
+
+
+<div class="container mt-2">
+    <!--   <div class="card card-block mb-2">
+        <h4 class="card-title">Card 1</h4>
+        <p class="card-text">Welcom to bootstrap card styles</p>
+        <a href="#" class="btn btn-primary">Submit</a>
+      </div>   -->
+      <div class="row">
+        <div *ngFor="let item of products" class="card pt-1">
+        <div class="col-md-3 col-sm-6 item">
+           
+          <div class="card item-card card-block">
+          <h4 class="card-title text-right"><i class="material-icons">favorite</i></h4>
+        <img src={{item.imgurl}} alt="Photo of sunset">
+            <h5 class="item-card-title mt-3 mb-3">{{item.name}}</h5>
+            <p class="card-text">{{item.description}}</p> 
+            <p class="card-text">Price: {{item.price}}</p> 
+      </div>
+    </div>
+        </div>
+    </div>
+    
