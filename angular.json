@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "niki-cart"
+    }
+  },
+  "defaultProject": "niki-cart",
+  "cli": {
+    "analytics": "0c5bc419-461c-4fbc-8e72-fb0d3d712a15"
+  }
 }

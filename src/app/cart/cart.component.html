@@ -10,7 +10,7 @@
 <div *ngIf="cartproducts.length > 1" class="m-5 card" style="width: 60%;">
   <div class="card-header">
     Your Cart
-    <div *ngFor="let item of cartproducts">
+    <div *ngFor="let item of cartproducts; index as i">
 
       <div class="m-4 card " style="width: 90%;">
         <div class="card-body">
@@ -19,11 +19,23 @@
           </div>
           <div style="float: right; text-align: right;">
             <h4 class="card-title">{{item.name}}</h4>
-            <b>
-              <a href="#" class="btn btn-danger"><b>-</b></a>
+            <!-- <b>
+              <button ng-click="decrement(item.quantity)" class="btn btn-danger"><b>-</b></button>
+              {{value}}
               &nbsp;&nbsp; {{item.quantity}} &nbsp;&nbsp;
-              <a href="#" class="btn btn-success"><b>+</b></a>
+              <button ng-click="increment(item.quantity)"  class="btn btn-success"><b>+</b></button>
+              <p class="message">{{ message }}</p>
+            </b> -->
+            <b>
+              <button (click)="decrement(item.quantity,i)" class="btn btn-danger"><b>-</b></button>
+               <span ng-value="item.quantity" ng-model="item"> {{item.quantity}} </span>
+              <button (click)="increment(item.quantity,i)"  class="btn btn-success"><b>+</b></button>
+              <!-- <p class="message" *ngIf="item.quantity >= 15">Maximum reached</p>
+              <p class="message" *ngIf="item.quantity <= 0">Minimum reached</p> -->
+              <p class="message">{{item.message}}</p>
+
             </b>
+
             <p class="card-text">Quantity: {{item.quantity}} x Unit Price: {{item.price}} = Total Price:
               {{item.quantity*item.price}}</p>
 
