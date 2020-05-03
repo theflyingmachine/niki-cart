@@ -1,27 +1,88 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import { ElementArrayFinder } from 'protractor';
 
 @Component({
   selector: 'app-shopping',
   templateUrl: './shopping.component.html',
-  styleUrls: ['./shopping.component.css']
+  styleUrls: ['./shopping.component.css'],
+  providers: [ApiService]
 })
 export class ShoppingComponent implements OnInit {
 
-  constructor() { }
+
+  products = [];
+  cart = [];
+  selectedProduct = [];
+  singleItem = [];
+
+   constructor(private api: ApiService) {
+    this.getProducts();
+    this.getCart();
+    this.selectedProduct
+   }
+
+   getProducts = () => { 
+   this.api.getAllProducts().subscribe(
+     data => {
+      this.products = data;
+     },
+     error => {
+       console.log(error);
+     }
+   )
+  }
+
+
+  getCart = () => { 
+    this.api.getCartProducts().subscribe(
+      data => {
+       this.cart = data;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+   }
+
 
   ngOnInit(): void {
   }
-    products = [
-     { name: "Coke", description  : "Black Cold Drink" , price: "35.00" , imgurl : "assets/img/coke.jpg" },
-     { name: "Sprite", description  : "Clear Cold Drink, Clear hai" , price: "45.00" , imgurl : "assets/img/sprite.jpg" },
-     { name: "Pepsi", description  : "Little brown, ye pyas hai badi" , price: "25.00" , imgurl : "assets/img/pepsi.jpg" },
-     { name: "Maaza", description  : "Aam cold drink, made from real mango pulp" , price: "60.00" , imgurl : "assets/img/maaza.jpg" },
-     { name: "Fanta", description  : "Only orange and sugar. best for orange lips." , price: "10.00" , imgurl : "assets/img/fanta.jpg" },
-     { name: "Coke", description  : "Black Cold Drink" , price: "35.00" , imgurl : "assets/img/coke.jpg" },
-     { name: "Sprite", description  : "Clear Cold Drink, Clear hai" , price: "45.00" , imgurl : "assets/img/sprite.jpg" },
-     { name: "Pepsi", description  : "Little brown, ye pyas hai badi" , price: "25.00" , imgurl : "assets/img/pepsi.jpg" },
-     { name: "Maaza", description  : "Aam cold drink, made from real mango pulp" , price: "60.00" , imgurl : "assets/img/maaza.jpg" },
-     { name: "Fanta", description  : "Only orange and sugar. best for orange lips." , price: "10.00" , imgurl : "assets/img/fanta.jpg" },  
- 
-    ];
+
+    addtoCart = (itme) => {
+      this.getCart();
+      let cartitems
+      if(!this.cart.some(cartitem => cartitem.name === itme.name)){
+      this.api.addProducttoCart(itme).subscribe(
+        data => {
+          this.selectedProduct.push(data);
+          this.getCart();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }else{
+      for (const property in this.cart) {
+        if ((`${this.cart[property].name}`) == itme.name){  
+          let itmeid = (`${this.cart[property].id}`);
+          let itemquantity = parseInt(`${this.cart[property].quantity}`);
+          itemquantity++;
+          this.updateCart(itmeid, (`${this.cart[property].name}`), itemquantity++, (`${this.cart[property].imgurl}`));
+        }
+      }
+    }
+    }
+
+    updateCart = (itmeid, itmename, quantity, imgurl) => {
+      
+      this.api.updateCartProduct(itmeid, itmename, quantity, imgurl).subscribe( 
+        data => {
+          this.getCart();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
 }

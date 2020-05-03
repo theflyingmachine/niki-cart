@@ -1,24 +1,38 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import { ElementArrayFinder } from 'protractor';
 import { CartSummaryComponent } from '../cart/cart-summary.component';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
+  providers: [ApiService]
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  cart = [];
+
+  constructor(private api: ApiService) {
+    this.getCart();
+   }
 
   ngOnInit(): void {
   }
-  cartproducts = [
-    { name: "Coke", quantity  : 1 , price: "35.00" , imgurl : "assets/img/coke.jpg" ,message:''},
-    { name: "Sprite", quantity  : 2 , price: "45.00" , imgurl : "assets/img/sprite.jpg" ,message:''},
-    { name: "Pepsi", quantity  :1 , price: "25.00" , imgurl : "assets/img/pepsi.jpg" ,message:''},
-    { name: "Maaza", quantity  : 4 , price: "60.00" , imgurl : "assets/img/maaza.jpg" ,message:''}
-  ];
 
+  getCart = () => { 
+    this.api.getCartProducts().subscribe(
+      data => {
+        data.forEach(element => {
+          
+       });
+       this.cart = data;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+   }
 
   //Increment and decrement
 // message: string;
@@ -26,14 +40,15 @@ export class CartComponent implements OnInit {
 increment(units:number,index:number) 
 {
   if(units < 15){
-    this.cartproducts[index].quantity += 1;  
-    this.cartproducts[index].message = ' ';   
+    this.cart[index].quantity += 1;  
+    this.cart[index].message = ' ';  
+    this.updateCart(this.cart[index].id, this.cart[index].name, this.cart[index].quantity,this.cart[index].imgurl) 
   }
   else
   {
     if(units >=15)
     {
-      this.cartproducts[index].message = 'Maximum reached!';
+      this.cart[index].message = 'Maximum reached!';
     }
  } 
 }
@@ -41,14 +56,28 @@ increment(units:number,index:number)
 decrement(units:number,index:number) 
 {
   if(units > 0){
-    this.cartproducts[index].quantity -= 1;  
-    this.cartproducts[index].message = ' ';  
+    this.cart[index].quantity -= 1;  
+    this.cart[index].message = ' '; 
+    this.updateCart(this.cart[index].id, this.cart[index].name, this.cart[index].quantity, this.cart[index].imgurl)
   }
   else if(units==0)
     {
-      this.cartproducts[index].message = 'Minimum reached!';
+      this.cart[index].message = 'Minimum reached!';
     }
        
+  }
+
+
+  updateCart = (itmeid, itmename, quantity, imgurl) => {
+      
+    this.api.updateCartProduct(itmeid, itmename, quantity, imgurl).subscribe( 
+      data => {
+        this.getCart();
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 

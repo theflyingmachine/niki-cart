@@ -17,7 +17,8 @@
         <h5 class="item-card-title mt-3 mb-3 d-flex justify-content-center">{{item.name}}</h5>
         <p class="card-text">{{item.description}}</p>
         <p class="card-text"><b>Price: {{item.price}}</b></p>
-        <button type="button" class="mb-3 ml-3 mr-3 btn btn-primary btn-lg">Add to Cart</button>
+        <button (click)="addtoCart(item)" class="mb-3 ml-3 mr-3 btn btn-primary btn-lg">Add to Cart</button>
+      
       </div>
     </div>
   </div>

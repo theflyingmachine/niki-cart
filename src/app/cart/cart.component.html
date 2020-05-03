@@ -1,4 +1,4 @@
-<div *ngIf="1 > cartproducts.length" class="mt-5 pt-5">
+<div *ngIf="1 > cart.length" class="mt-5 pt-5">
   <h2 class="d-flex justify-content-center">Your cart is empty! Let's do some shopping</h2>
   <div class="d-flex justify-content-center">
     <img src="https://i1.wp.com/www.huratips.com/wp-content/uploads/2019/04/empty-cart.png?fit=603%2C288&ssl=1"
@@ -7,10 +7,14 @@
   </div>
 </div>
 
-<div *ngIf="cartproducts.length > 1" class="m-5 card" style="width: 60%;">
+<div style="width: 50%; float:left">
+
+
+
+<div *ngIf="cart.length > 1" class="m-5 card">
   <div class="card-header">
-    Your Cart
-    <div *ngFor="let item of cartproducts; index as i">
+    <h4>Your Cart</h4> 
+    <div *ngFor="let item of cart; index as i">
 
       <div class="m-4 card " style="width: 90%;">
         <div class="card-body">
@@ -27,7 +31,8 @@
               <p class="message">{{ message }}</p>
             </b> -->
             <b>
-              <button (click)="decrement(item.quantity,i)" class="btn btn-danger"><b>-</b></button>
+              
+              <button *ngIf="item.quantity > 1" (click)="decrement(item.quantity,i)" class="btn btn-danger"><b>-</b></button>
                <span ng-value="item.quantity" ng-model="item"> {{item.quantity}} </span>
               <button (click)="increment(item.quantity,i)"  class="btn btn-success"><b>+</b></button>
               <!-- <p class="message" *ngIf="item.quantity >= 15">Maximum reached</p>
@@ -48,15 +53,10 @@
     </div>
 
    
-    <div *ngIf="cartproducts.length > 1" class="m-5 card" style="width: 20%; float: right;">
-      <div class="card-header">
-        Your Cart
-        <div *ngFor="let item of cartproducts; index as i">
-    
-          <div class="m-4 card " style="width: 90%;">
-        
-          </div>
-        </div>
+  </div>
+  <div style="width: 50%; float: right;">
+    <app-cart-summary></app-cart-summary>
+  </div>
        
    
    
